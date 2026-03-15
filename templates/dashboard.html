@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Fraud Detection Dashboard</title>
+<link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>Fraud Detection Intelligence Dashboard</h1>
+</div>
+
+<div class="container">
+
+<!-- =============================== -->
+<!-- 1 SYSTEM OVERVIEW -->
+<!-- =============================== -->
+
+<div class="card">
+
+<h2>1. System Overview</h2>
+
+<p>Total Transactions: {{stats.total}}</p>
+<p style="color:red;">High Risk Transactions: {{stats.high}}</p>
+<p style="color:orange;">Medium Risk Transactions: {{stats.medium}}</p>
+<p style="color:green;">Low Risk Transactions: {{stats.low}}</p>
+
+</div>
+
+
+
+<!-- =============================== -->
+<!-- 2 INCOMING TRANSACTIONS -->
+<!-- =============================== -->
+
+<div class="card">
+
+<h2>2. Incoming Transactions</h2>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>User</th>
+<th>Amount</th>
+<th>Location</th>
+<th>Risk Score</th>
+</tr>
+
+{% for t in transactions %}
+
+<tr>
+
+<td>{{t.id}}</td>
+
+<td>{{t.user_id}}</td>
+
+<td>{{t.amount}}</td>
+
+<td>{{t.location}}</td>
+
+<td>
+
+{% if t.risk_score > 0.7 %}
+
+<span style="color:red;font-weight:bold;">
+HIGH ({{t.risk_score}})
+</span>
+
+{% elif t.risk_score > 0.4 %}
+
+<span style="color:orange;">
+MEDIUM ({{t.risk_score}})
+</span>
+
+{% else %}
+
+<span style="color:green;">
+LOW ({{t.risk_score}})
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+
+
+<!-- =============================== -->
+<!-- 3 FEATURE ANALYSIS -->
+<!-- =============================== -->
+
+<div class="card">
+
+<h2>3. Feature Analysis</h2>
+
+<p>The system evaluates transaction behavior using engineered features such as:</p>
+
+<ul>
+
+<li>Transaction Amount Deviation</li>
+
+<li>Night Transaction Indicator</li>
+
+<li>Device Change Detection</li>
+
+<li>Location Change Detection</li>
+
+</ul>
+
+<p>Total Transactions Analysed: {{stats.total}}</p>
+
+</div>
+
+
+
+<!-- =============================== -->
+<!-- 4 ML MODEL DECISION -->
+<!-- =============================== -->
+
+<div class="card">
+
+<h2>4. ML Model Decision</h2>
+
+<p>The ML engine computes fraud probability using the trained model.</p>
+
+<div class="decision-box">
+
+<p>Fraud Probability: <strong>{{probability}}</strong></p>
+
+{% if probability > 0.7 %}
+
+<p style="color:red;font-weight:bold;">
+Risk Level: HIGH
+</p>
+
+{% elif probability > 0.4 %}
+
+<p style="color:orange;">
+Risk Level: MEDIUM
+</p>
+
+{% else %}
+
+<p style="color:green;">
+Risk Level: LOW
+</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+
+<!-- =============================== -->
+<!-- 5 FRAUD EXPLANATION -->
+<!-- =============================== -->
+
+<div class="card">
+
+<h2>5. Fraud Explanation</h2>
+
+<p>The system explains why the transaction might be flagged:</p>
+
+<ul>
+
+{% for reason in explanations %}
+
+<li>{{reason}}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+
+<!-- =============================== -->
+<!-- 6 FRAUD INSIGHTS -->
+<!-- =============================== -->
+
+<div class="card">
+
+<h2>6. Fraud Insights & Analytics</h2>
+
+<p>This section visualizes fraud patterns:</p>
+
+<ul>
+
+<li>Total Transactions: {{stats.total}}</li>
+
+<li style="color:red;">
+High Risk Activity: {{stats.high}}
+</li>
+
+<li style="color:orange;">
+Medium Risk Activity: {{stats.medium}}
+</li>
+
+<li style="color:green;">
+Low Risk Activity: {{stats.low}}
+</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+</body>
+</html>
