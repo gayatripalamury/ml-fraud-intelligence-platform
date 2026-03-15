@@ -203,6 +203,3 @@ The goal of this project is to demonstrate how **Machine Learning can be applied
 ---
 ## 👩‍💻 Author
 Lakshmi Gayatri Palamuri  
-B.Tech CSE (Data Science)  
-Vardhaman College of Engineering
----
